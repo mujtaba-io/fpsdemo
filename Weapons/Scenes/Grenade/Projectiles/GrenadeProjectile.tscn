@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcsvoqc1keegl"]
+
+[ext_resource type="Script" uid="uid://cu4cyt1pjpdl4" path="res://Weapons/Scenes/Grenade/Projectiles/GrenadeProjectile.gd" id="1_m03b8"]
+[ext_resource type="PackedScene" uid="uid://c6c3w3s6vkl6s" path="res://Weapons/VFX/HitImpacts/VFXScenes/GrenadeExplosion.tscn" id="2_75003"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1a2ow"]
+radius = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m03b8"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_75003"]
+material = SubResource("StandardMaterial3D_m03b8")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75003"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pcpgt"]
+material = SubResource("StandardMaterial3D_75003")
+size = Vector3(0.02, 0.09, 0.02)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m03b8"]
+radius = 12.0
+
+[node name="GrenadeProjectile" type="RigidBody3D" node_paths=PackedStringArray("fuse_timer", "explosion_area")]
+script = ExtResource("1_m03b8")
+explosion_vfx_scene = ExtResource("2_75003")
+fuse_timer = NodePath("Timer")
+explosion_area = NodePath("ExplosionArea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_1a2ow")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_75003")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.106018, 0)
+mesh = SubResource("BoxMesh_pcpgt")
+skeleton = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="ExplosionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea"]
+shape = SubResource("SphereShape3D_m03b8")

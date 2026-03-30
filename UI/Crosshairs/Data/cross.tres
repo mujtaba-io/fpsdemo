@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CrosshairData" load_steps=2 format=3 uid="uid://blxvy5x5s1ljg"]
+
+[ext_resource type="Script" uid="uid://clc7kl2lhqgst" path="res://UI/Crosshairs/Data/crosshair_data.gd" id="1_g8u3r"]
+
+[resource]
+script = ExtResource("1_g8u3r")
+crosshair_type = 2
+color = Color(0.854902, 0.647059, 0.12549, 1)
+line_thickness = 0.8
+base_size = 20
+max_recoil_multiplier = 5.0
+plus_gap = 5
+cross_gap = 4
+circle_segments = 16
+circle_segment_length_percent = 0.4
+circle_dot_size = 1.0
+metadata/_custom_type_script = "uid://clc7kl2lhqgst"

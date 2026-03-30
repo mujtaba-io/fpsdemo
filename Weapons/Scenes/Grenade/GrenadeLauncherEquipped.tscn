@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch0ifvyxi04fr"]
+
+[ext_resource type="Script" uid="uid://ld7bvksqnpjc" path="res://Weapons/Scenes/Grenade/GrenadeLauncherEquipped.gd" id="1_p4py4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m03b8"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vq423"]
+material = SubResource("StandardMaterial3D_m03b8")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x28ce"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nmobo"]
+material = SubResource("StandardMaterial3D_x28ce")
+size = Vector3(0.02, 0.09, 0.02)
+
+[node name="GrenadeLauncher" type="Node3D" node_paths=PackedStringArray("weapon_model", "wall_check_ray", "fire_ray")]
+script = ExtResource("1_p4py4")
+weapon_model = NodePath("MeshInstance3D")
+wall_check_ray = NodePath("WallCheckRay")
+fire_ray = NodePath("FireRay")
+disable_friendly_fire = false
+friendly_group_name = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_vq423")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.106018, 0)
+mesh = SubResource("BoxMesh_nmobo")
+skeleton = NodePath("../..")
+
+[node name="WallCheckRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.3)
+
+[node name="FireRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.5)

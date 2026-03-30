@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=9 format=3 uid="uid://c3dwjipors8xe"]
+
+[ext_resource type="Resource" uid="uid://cx2x8tq68y1n1" path="res://UI/Crosshairs/Data/plus.tres" id="1_h6juy"]
+[ext_resource type="Script" uid="uid://d32alp83d3sxe" path="res://Weapons/VFX/HitImpacts/weapon_imact.gd" id="1_uowdv"]
+[ext_resource type="Resource" uid="uid://drltox6qsdfyr" path="res://Weapons/VFX/HitImpacts/hit_impact.tres" id="2_h6juy"]
+[ext_resource type="Resource" uid="uid://gl7je0h28hbx" path="res://Weapons/VFX/HitImpacts/blood_spill_impact.tres" id="3_mmvwf"]
+[ext_resource type="Script" uid="uid://cwyn4sd4xsux6" path="res://Weapons/Definitions/weapon_data.gd" id="4_b1ne4"]
+[ext_resource type="PackedScene" uid="uid://c6l2b1n2m42n4" path="res://Weapons/Scenes/Revolver/RevolverEquipped.tscn" id="5_abe07"]
+[ext_resource type="PackedScene" uid="uid://c5v81v35q16n7" path="res://Weapons/VFX/MuzzleFlashes/VFXScenes/RevolverMuzzleFlash.tscn" id="5_mmvwf"]
+[ext_resource type="PackedScene" uid="uid://bxcpoe78gy6sw" path="res://Weapons/Scenes/Revolver/RevolverPickup.tscn" id="6_e7pi2"]
+
+[resource]
+script = ExtResource("4_b1ne4")
+weapon_name = "Revolver"
+weapon_equipped_scene = ExtResource("5_abe07")
+weapon_pickup_scene = ExtResource("6_e7pi2")
+max_magazine_capacity = 6
+max_total_ammo = 24
+reload_time = 1.5
+uses_ammo = true
+damage = 25
+recovery_speed = 7.0
+impacts = Array[ExtResource("1_uowdv")]([ExtResource("2_h6juy"), ExtResource("3_mmvwf")])
+muzzle_flash_scene = ExtResource("5_mmvwf")
+recoil_kickback = 0.18
+recoil_rotation_degrees = Vector3(-12, 3, 0)
+recoil_impact_multiplier = 1.3
+recovery_delay = 0.0
+retract_distance = 0.5
+retract_lerp_speed = 30.0
+slash_lunge_distance = -0.3
+slash_rotation_degrees = Vector3(30, 0, -15)
+slash_duration = 0.1
+return_duration = 0.2
+projectile_launch_force = 20.0
+crosshair_data = ExtResource("1_h6juy")
+metadata/_custom_type_script = "uid://cwyn4sd4xsux6"

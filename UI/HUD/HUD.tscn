@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=3 uid="uid://c65k1p24f1q0m"]
+
+[ext_resource type="Script" uid="uid://7bptp4sj7rfo" path="res://UI/HUD/HUD.gd" id="1_k663y"]
+[ext_resource type="FontFile" uid="uid://u671v6jg326t" path="res://UI/Share_Tech_Mono_Font/ShareTechMono-Regular.ttf" id="2_2415p"]
+[ext_resource type="Script" uid="uid://cm647lduix0e" path="res://UI/Crosshairs/CrosshairDrawer.gd" id="3_m5m4x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oab2y"]
+bg_color = Color(0.0862745, 0.0901961, 0.101961, 0.705882)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.235294, 0.603922, 0.831373, 0.25098)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q4s1"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 0.619608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0a3j"]
+bg_color = Color(0.235294, 0.603922, 0.831373, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="Theme" id="Theme_2lq7a"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0q4s1")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_o0a3j")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqdxh"]
+bg_color = Color(0.85098, 0.231373, 0.266667, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7t87y"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0862745, 0.0901961, 0.101961, 0.705882)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.301961)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l13s0"]
+bg_color = Color(0.0862745, 0.0901961, 0.101961, 0.705882)
+border_width_left = 2
+border_color = Color(0.235294, 0.603922, 0.831373, 0.490196)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_k663y")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HealthPanel" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_oab2y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HealthPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HealthPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("2_2415p")
+theme_override_font_sizes/font_size = 14
+text = "HEALTH"
+
+[node name="HealthBarContainer" type="Control" parent="MarginContainer/HealthPanel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 16)
+layout_mode = 2
+
+[node name="GhostHealthBar" type="ProgressBar" parent="MarginContainer/HealthPanel/VBoxContainer/HealthBarContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2lq7a")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gqdxh")
+value = 100.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/HealthPanel/VBoxContainer/HealthBarContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2lq7a")
+step = 1.0
+value = 70.0
+show_percentage = false
+
+[node name="CenterPrompt" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PromptPanel" type="PanelContainer" parent="MarginContainer/CenterPrompt"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7t87y")
+
+[node name="PromptLabel" type="Label" parent="MarginContainer/CenterPrompt/PromptPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2415p")
+theme_override_font_sizes/font_size = 20
+text = "PRESS [E] TO INTERACT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponPanel" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_l13s0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/WeaponPanel"]
+layout_mode = 2
+
+[node name="WeaponNameLabel" type="Label" parent="MarginContainer/WeaponPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_fonts/font = ExtResource("2_2415p")
+theme_override_font_sizes/font_size = 14
+text = "PRIMITIVE RIFLE"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/WeaponPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MagAmmoLabel" type="Label" parent="MarginContainer/WeaponPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2415p")
+theme_override_font_sizes/font_size = 48
+text = "30"
+horizontal_alignment = 2
+
+[node name="ReserveAmmoLabel" type="Label" parent="MarginContainer/WeaponPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_2415p")
+theme_override_font_sizes/font_size = 24
+text = "/ 120"
+horizontal_alignment = 2
+
+[node name="CrosshairDrawer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_m5m4x")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6q0aefx8s4v3"]
+
+[ext_resource type="Script" uid="uid://dmpjfxbrbg0n8" path="res://Weapons/Scenes/Knife/KnifeEquipped.gd" id="1_ijpcj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8o20h"]
+albedo_color = Color(0.960784, 0.960784, 0.960784, 1)
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nug1g"]
+albedo_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6r02u"]
+size = Vector3(0.177423, 0.1, 0.675586)
+
+[node name="Knife" type="Node3D" node_paths=PackedStringArray("hit_area", "weapon_model", "wall_check_ray")]
+script = ExtResource("1_ijpcj")
+hit_area = NodePath("HitArea")
+weapon_model = NodePath("WeaponModel")
+wall_check_ray = NodePath("WallCheckRay")
+disable_friendly_fire = null
+friendly_group_name = null
+
+[node name="WeaponModel" type="Node3D" parent="."]
+
+[node name="Blade" type="CSGPolygon3D" parent="WeaponModel"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0254197, 0, 0.0541256)
+polygon = PackedVector2Array(0, 0.04, -0.499118, -0.00199537, 0, -0.04)
+depth = 0.05
+material = SubResource("StandardMaterial3D_8o20h")
+
+[node name="Handle" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+size = Vector3(0.06, 0.08, 0.2)
+material = SubResource("StandardMaterial3D_nug1g")
+
+[node name="HitArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00193176, 0, -0.037793)
+shape = SubResource("BoxShape3D_6r02u")
+
+[node name="WallCheckRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.122832)
+target_position = Vector3(0, 0, -0.6)
+
+[node name="SwingTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="SwingTimer" to="." method="_on_swing_timer_timeout"]

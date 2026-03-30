@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3 uid="uid://grvl2n6k0704"]
+
+[ext_resource type="Resource" uid="uid://blxvy5x5s1ljg" path="res://UI/Crosshairs/Data/cross.tres" id="1_4kxjb"]
+[ext_resource type="Script" uid="uid://d32alp83d3sxe" path="res://Weapons/VFX/HitImpacts/weapon_imact.gd" id="1_mtu7h"]
+[ext_resource type="Script" uid="uid://cwyn4sd4xsux6" path="res://Weapons/Definitions/weapon_data.gd" id="2_lgbm6"]
+[ext_resource type="PackedScene" uid="uid://ch0ifvyxi04fr" path="res://Weapons/Scenes/Grenade/GrenadeLauncherEquipped.tscn" id="3_lgbm6"]
+[ext_resource type="PackedScene" uid="uid://bcsvoqc1keegl" path="res://Weapons/Scenes/Grenade/Projectiles/GrenadeProjectile.tscn" id="3_tdsu8"]
+[ext_resource type="PackedScene" uid="uid://c6c3geqoeb6eg" path="res://Weapons/Scenes/Grenade/GrenadeLauncherPickup.tscn" id="6_ent0b"]
+
+[resource]
+script = ExtResource("2_lgbm6")
+weapon_name = "Grenade"
+weapon_equipped_scene = ExtResource("3_lgbm6")
+weapon_pickup_scene = ExtResource("6_ent0b")
+max_magazine_capacity = 1
+max_total_ammo = 4
+reload_time = 0.5
+uses_ammo = true
+damage = 100
+recovery_speed = 7.0
+impacts = Array[ExtResource("1_mtu7h")]([])
+recoil_kickback = 0.1
+recoil_rotation_degrees = Vector3(-5, 2, 0)
+recoil_impact_multiplier = 1.0
+recovery_delay = 0.0
+retract_distance = 0.5
+retract_lerp_speed = 30.0
+slash_lunge_distance = -0.3
+slash_rotation_degrees = Vector3(30, 0, -15)
+slash_duration = 0.1
+return_duration = 0.2
+projectile_scene = ExtResource("3_tdsu8")
+projectile_launch_force = 20.0
+crosshair_data = ExtResource("1_4kxjb")
+metadata/_custom_type_script = "uid://cwyn4sd4xsux6"

@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://bvwns608027a0"]
+
+[ext_resource type="Script" uid="uid://ekkvnb5x2mn" path="res://Weapons/Scenes/Shotgun/ShotgunEquipped.gd" id="1_igwni"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdc3n"]
+albedo_color = Color(0.2, 0.215686, 0.243137, 1)
+metallic = 0.5
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yweax"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e2e8"]
+albedo_color = Color(0.360784, 0.215686, 0.14902, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_jxnu3"]
+size = Vector3(0.1, 0.07, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vmsoh"]
+size = Vector3(0.11, 0.1, 0.22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cdijk"]
+size = Vector3(0.08, 0.12, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pp7cb"]
+size = Vector3(0.08, 0.25, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i2b7a"]
+size = Vector3(0.02, 0.06, 0.03)
+
+[node name="Shotgun" type="Node3D" node_paths=PackedStringArray("weapon_model", "wall_check_ray", "fire_ray")]
+script = ExtResource("1_igwni")
+weapon_model = NodePath("Shotgun")
+wall_check_ray = NodePath("WallCheckRay")
+fire_ray = NodePath("FireRay")
+disable_friendly_fire = null
+friendly_group_name = null
+
+[node name="WallCheckRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.114169)
+target_position = Vector3(0, 0, -0.7)
+
+[node name="FireRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500693, -0.546568)
+target_position = Vector3(0, 0, -50)
+
+[node name="Shotgun" type="Node3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0505554, -0.067264)
+
+[node name="Barrel_Left" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0.027, 0, -0.149669)
+material_override = SubResource("StandardMaterial3D_bdc3n")
+mesh = SubResource("CylinderMesh_yweax")
+
+[node name="Barrel_Right" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, -0.027, 0, -0.149669)
+material_override = SubResource("StandardMaterial3D_bdc3n")
+mesh = SubResource("CylinderMesh_yweax")
+
+[node name="ForeEnd" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.77142e-08, -0.06, -0.0496694)
+material_override = SubResource("StandardMaterial3D_2e2e8")
+mesh = SubResource("BoxMesh_jxnu3")
+
+[node name="Receiver_Main" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.28837e-08, -0.02, 0.300331)
+material_override = SubResource("StandardMaterial3D_bdc3n")
+mesh = SubResource("BoxMesh_vmsoh")
+
+[node name="Receiver_Bottom" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 2.99003e-08, 8.21505e-08, 0, 0.939693, -0.34202, -8.74228e-08, -0.34202, -0.939693, -1.11353e-08, -0.08, 0.280331)
+material_override = SubResource("StandardMaterial3D_bdc3n")
+mesh = SubResource("BoxMesh_cdijk")
+
+[node name="Grip" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 4.37114e-08, 7.57104e-08, 0, 0.866025, -0.5, -8.74228e-08, -0.5, -0.866025, -2.41475e-08, -0.1, 0.429173)
+material_override = SubResource("StandardMaterial3D_2e2e8")
+mesh = SubResource("BoxMesh_pp7cb")
+
+[node name="Hammer" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.07518e-08, 0.06, 0.390331)
+material_override = SubResource("StandardMaterial3D_bdc3n")
+mesh = SubResource("BoxMesh_i2b7a")

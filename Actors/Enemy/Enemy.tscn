@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://c6a8r0l4j6681"]
+
+[ext_resource type="Script" uid="uid://cbj2tv2vmljoj" path="res://Actors/Enemy/EnemyController.gd" id="1_4sq7k"]
+[ext_resource type="Script" uid="uid://dq4nexmnn7u6g" path="res://Weapons/WeaponsManager.gd" id="2_f5y6p"]
+[ext_resource type="Script" uid="uid://bsoxaycfq38yc" path="res://Components/Health/Health.gd" id="2_vso2s"]
+[ext_resource type="Script" uid="uid://cwyn4sd4xsux6" path="res://Weapons/Definitions/weapon_data.gd" id="4_fkela"]
+[ext_resource type="Resource" uid="uid://c3dwjipors8xe" path="res://Weapons/Definitions/revolver.tres" id="5_al47f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o6jf2"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0k7v"]
+albedo_color = Color(0.121569, 0.419608, 0.890196, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24jle"]
+material = SubResource("StandardMaterial3D_d0k7v")
+size = Vector3(0.8, 1, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhfnw"]
+size = Vector3(0.7, 0.25, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h170n"]
+albedo_color = Color(0.866667, 0.690196, 0.584314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k280n"]
+material = SubResource("StandardMaterial3D_h170n")
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5w16"]
+albedo_color = Color(0.0980392, 0.490196, 0.823529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k233s"]
+material = SubResource("StandardMaterial3D_n5w16")
+size = Vector3(0.7, 0.15, 0.7)
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("weapons_manager", "health_component") groups=["enemies"]]
+script = ExtResource("1_4sq7k")
+weapons_manager = NodePath("Head/GunMount")
+health_component = NodePath("Health")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_vso2s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_o6jf2")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("BoxMesh_24jle")
+skeleton = NodePath("../..")
+
+[node name="Feet" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.127971, 0)
+mesh = SubResource("BoxMesh_xhfnw")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Head"]
+mesh = SubResource("BoxMesh_k280n")
+
+[node name="Hat" type="MeshInstance3D" parent="Head/HeadMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_k233s")
+
+[node name="GunMount" type="Node3D" parent="Head" node_paths=PackedStringArray("shooter_body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240212, -0.246885, -0.5)
+script = ExtResource("2_f5y6p")
+weapon_data_array = Array[ExtResource("4_fkela")]([ExtResource("5_al47f")])
+shooter_body = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 50.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AlertCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="WanderTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="StrafeTimer" type="Timer" parent="."]

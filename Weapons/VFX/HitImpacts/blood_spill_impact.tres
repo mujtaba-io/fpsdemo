@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponImpact" load_steps=3 format=3 uid="uid://gl7je0h28hbx"]
+
+[ext_resource type="PackedScene" uid="uid://c67u6018b3g51" path="res://Weapons/VFX/HitImpacts/VFXScenes/BloodSpillVFX.tscn" id="1_ewona"]
+[ext_resource type="Script" uid="uid://d32alp83d3sxe" path="res://Weapons/VFX/HitImpacts/weapon_imact.gd" id="1_ry5fu"]
+
+[resource]
+script = ExtResource("1_ry5fu")
+impact_scene = ExtResource("1_ewona")
+group_name = "mortals"
+metadata/_custom_type_script = "uid://d32alp83d3sxe"

@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://dx041aw4hoel8"]
+
+[ext_resource type="Script" uid="uid://c3xsmv8wkrlhy" path="res://Weapons/Scenes/WeaponPickup.gd" id="1_mww3o"]
+[ext_resource type="Script" uid="uid://c7sxhj46c8p76" path="res://Components/Interaction/Interactable.gd" id="2_cgv3q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rl6ig"]
+size = Vector3(0.134308, 0.298202, 0.887421)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_482af"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rl6ig"]
+albedo_color = Color(0.2, 0.215686, 0.243137, 1)
+metallic = 0.5
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_482af"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1f8a"]
+albedo_color = Color(0.360784, 0.215686, 0.14902, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_bxl0c"]
+size = Vector3(0.1, 0.07, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g8f8d"]
+size = Vector3(0.11, 0.1, 0.22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7grl6"]
+size = Vector3(0.08, 0.12, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gqbs1"]
+size = Vector3(0.08, 0.25, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vf6c2"]
+size = Vector3(0.02, 0.06, 0.03)
+
+[node name="Shotgun" type="RigidBody3D" node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_mww3o")
+interactable = NodePath("Interactable")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00309748, 0.00203699, -0.0771944)
+shape = SubResource("BoxShape3D_rl6ig")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_cgv3q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_482af")
+
+[node name="Shotgun" type="Node3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0505554, -0.067264)
+
+[node name="Barrel_Left" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0.027, 0, -0.149669)
+material_override = SubResource("StandardMaterial3D_rl6ig")
+mesh = SubResource("CylinderMesh_482af")
+
+[node name="Barrel_Right" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, -0.027, 0, -0.149669)
+material_override = SubResource("StandardMaterial3D_rl6ig")
+mesh = SubResource("CylinderMesh_482af")
+
+[node name="ForeEnd" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.77142e-08, -0.06, -0.0496694)
+material_override = SubResource("StandardMaterial3D_n1f8a")
+mesh = SubResource("BoxMesh_bxl0c")
+
+[node name="Receiver_Main" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.28837e-08, -0.02, 0.300331)
+material_override = SubResource("StandardMaterial3D_rl6ig")
+mesh = SubResource("BoxMesh_g8f8d")
+
+[node name="Receiver_Bottom" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 2.99003e-08, 8.21505e-08, 0, 0.939693, -0.34202, -8.74228e-08, -0.34202, -0.939693, -1.11353e-08, -0.08, 0.280331)
+material_override = SubResource("StandardMaterial3D_rl6ig")
+mesh = SubResource("BoxMesh_7grl6")
+
+[node name="Grip" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 4.37114e-08, 7.57104e-08, 0, 0.866025, -0.5, -8.74228e-08, -0.5, -0.866025, -2.41475e-08, -0.1, 0.429173)
+material_override = SubResource("StandardMaterial3D_n1f8a")
+mesh = SubResource("BoxMesh_gqbs1")
+
+[node name="Hammer" type="MeshInstance3D" parent="Shotgun"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.07518e-08, 0.06, 0.390331)
+material_override = SubResource("StandardMaterial3D_rl6ig")
+mesh = SubResource("BoxMesh_vf6c2")

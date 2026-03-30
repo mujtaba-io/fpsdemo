@@ -1,0 +1,189 @@
+[gd_scene load_steps=22 format=3 uid="uid://b6q0353c7mflf"]
+
+[ext_resource type="Script" uid="uid://cuebet7l8e1m7" path="res://Weapons/VFX/HitImpacts/VFXScenes/HitImpactVFX.gd" id="1_r8rgb"]
+
+[sub_resource type="Curve" id="Curve_2ayg1"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(1, -200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1p54h"]
+curve = SubResource("Curve_2ayg1")
+
+[sub_resource type="Curve" id="Curve_o22gq"]
+_data = [Vector2(0, 1), 0.0, -2.5, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yq12y"]
+curve = SubResource("Curve_o22gq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r8n13"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 0.01
+angle_min = 45.0
+angle_max = 45.0
+direction = Vector3(0, 0, -1)
+spread = 0.0
+initial_velocity_min = 0.01
+initial_velocity_max = 0.01
+angular_velocity_curve = SubResource("CurveTexture_1p54h")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_yq12y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6d64"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.858824, 0.588235, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_45mmy"]
+material = SubResource("StandardMaterial3D_c6d64")
+size = Vector3(0.5, 0.5, 0.05)
+
+[sub_resource type="Gradient" id="Gradient_24483"]
+offsets = PackedFloat32Array(0, 0.49226)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.835294, 0.490196, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q2oqo"]
+gradient = SubResource("Gradient_24483")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e1s4b"]
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, -1)
+spread = 40.0
+initial_velocity_min = 14.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+damping_min = 8.0
+damping_max = 10.0
+scale_min = 0.5
+scale_max = 0.8
+color_ramp = SubResource("GradientTexture1D_q2oqo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b246a"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.6, 0.2, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_g16r6"]
+material = SubResource("StandardMaterial3D_b246a")
+size = Vector3(0.05, 0.05, 0.7)
+
+[sub_resource type="Curve" id="Curve_x8jva"]
+_data = [Vector2(0, 0), 0.0, 2.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.5, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1e680"]
+curve = SubResource("Curve_x8jva")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_653d3"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, -1)
+spread = 0.0
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+damping_min = 4.0
+damping_max = 5.0
+scale_min = 0.2
+scale_max = 0.4
+color = Color(0.678431, 0.588235, 0.45098, 1)
+alpha_curve = SubResource("CurveTexture_1e680")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6r03d"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.392157)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_63fke"]
+material = SubResource("StandardMaterial3D_6r03d")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qf56l"]
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, -1)
+spread = 70.0
+initial_velocity_min = 4.0
+initial_velocity_max = 10.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, -15, 0)
+damping_min = 1.0
+damping_max = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5kpr"]
+albedo_color = Color(0.407843, 0.352941, 0.301961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k720e"]
+material = SubResource("StandardMaterial3D_x5kpr")
+size = Vector3(0.08, 0.08, 0.08)
+
+[node name="HitImpactVFX" type="Node3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("1_r8rgb")
+
+[node name="ImpactFlash" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.07
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_r8n13")
+draw_pass_1 = SubResource("BoxMesh_45mmy")
+
+[node name="EnergySlashes" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_e1s4b")
+draw_pass_1 = SubResource("BoxMesh_g16r6")
+
+[node name="DustRing" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_653d3")
+draw_pass_1 = SubResource("BoxMesh_63fke")
+
+[node name="HeavyDebris" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 1.8
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_qf56l")
+draw_pass_1 = SubResource("BoxMesh_k720e")
+
+[node name="LingeringSmoke" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.7
+process_material = SubResource("ParticleProcessMaterial_653d3")
+draw_pass_1 = SubResource("BoxMesh_63fke")

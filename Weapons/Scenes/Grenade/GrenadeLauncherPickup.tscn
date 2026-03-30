@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6c3geqoeb6eg"]
+
+[ext_resource type="Script" uid="uid://c3xsmv8wkrlhy" path="res://Weapons/Scenes/WeaponPickup.gd" id="1_gyu0n"]
+[ext_resource type="Script" uid="uid://c7sxhj46c8p76" path="res://Components/Interaction/Interactable.gd" id="2_ffhod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m03b8"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vq423"]
+material = SubResource("StandardMaterial3D_m03b8")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x28ce"]
+albedo_color = Color(0.0570499, 0.016014, 0.0429503, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nmobo"]
+material = SubResource("StandardMaterial3D_x28ce")
+size = Vector3(0.02, 0.09, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dqwl8"]
+size = Vector3(0.256714, 0.224548, 0.220703)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i7dsl"]
+
+[node name="GrenadeLauncherWorld" type="RigidBody3D" node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_gyu0n")
+interactable = NodePath("Interactable")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_vq423")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.106018, 0)
+mesh = SubResource("BoxMesh_nmobo")
+skeleton = NodePath("../..")
+
+[node name="WallCheckRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.10352e-05, 0.00894165, -0.00390625)
+shape = SubResource("BoxShape3D_dqwl8")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_ffhod")
+metadata/_custom_type_script = "uid://c7sxhj46c8p76"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_i7dsl")

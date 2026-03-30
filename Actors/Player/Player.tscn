@@ -1,0 +1,124 @@
+[gd_scene load_steps=21 format=3 uid="uid://7syffu43eek2"]
+
+[ext_resource type="Script" uid="uid://b6jn7s68acrki" path="res://Actors/Player/PlayerController.gd" id="1_lsjxn"]
+[ext_resource type="Script" uid="uid://dq4nexmnn7u6g" path="res://Weapons/WeaponsManager.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://bsoxaycfq38yc" path="res://Components/Health/Health.gd" id="2_tdg3f"]
+[ext_resource type="Script" uid="uid://bub4m75r4ix48" path="res://Components/Interaction/Interactor.gd" id="3_5ncpa"]
+[ext_resource type="Script" uid="uid://cwyn4sd4xsux6" path="res://Weapons/Definitions/weapon_data.gd" id="4_dtqjt"]
+[ext_resource type="Resource" uid="uid://kpm3yjcv4rm5" path="res://Weapons/Definitions/knife.tres" id="5_5ncpa"]
+[ext_resource type="Resource" uid="uid://c3dwjipors8xe" path="res://Weapons/Definitions/revolver.tres" id="6_wi0c6"]
+[ext_resource type="Resource" uid="uid://251f54k0iqdv" path="res://Weapons/Definitions/shotgun.tres" id="7_hp6x6"]
+[ext_resource type="Resource" uid="uid://grvl2n6k0704" path="res://Weapons/Definitions/grenade.tres" id="9_nr77w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o6jf2"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0k7v"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24jle"]
+material = SubResource("StandardMaterial3D_d0k7v")
+size = Vector3(0.8, 1, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhfnw"]
+size = Vector3(0.7, 0.25, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h170n"]
+albedo_color = Color(0.866667, 0.690196, 0.584314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k280n"]
+material = SubResource("StandardMaterial3D_h170n")
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5w16"]
+albedo_color = Color(0.0980392, 0.490196, 0.823529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k233s"]
+material = SubResource("StandardMaterial3D_n5w16")
+size = Vector3(0.7, 0.15, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5kegl"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w6yv7"]
+size = Vector3(0.15, 0.2, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g327v"]
+size = Vector3(0.1, 0.1, 1)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapons_manager", "interactor", "health_component", "aim_target")]
+floor_stop_on_slope = false
+floor_constant_speed = true
+floor_block_on_wall = false
+floor_max_angle = 1.5708
+script = ExtResource("1_lsjxn")
+weapons_manager = NodePath("Head/Camera3D/WeaponManager")
+interactor = NodePath("Head/Camera3D/Interactor")
+health_component = NodePath("Health")
+aim_target = NodePath("Marker3D")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_tdg3f")
+initial_max_health = 200
+is_player = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_o6jf2")
+
+[node name="UncrouchCheck" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_o6jf2")
+target_position = Vector3(0, 0.9, 0)
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("BoxMesh_24jle")
+skeleton = NodePath("../..")
+
+[node name="Feet" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.127971, 0)
+mesh = SubResource("BoxMesh_xhfnw")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("BoxMesh_k280n")
+
+[node name="Hat" type="MeshInstance3D" parent="Head/HeadMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_k233s")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+current = true
+
+[node name="Interactor" type="RayCast3D" parent="Head/Camera3D" node_paths=PackedStringArray("owner_entity")]
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+script = ExtResource("3_5ncpa")
+owner_entity = NodePath("../../..")
+
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("shooter_body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -0.5)
+script = ExtResource("2_kne1u")
+weapon_data_array = Array[ExtResource("4_dtqjt")]([ExtResource("5_5ncpa"), ExtResource("6_wi0c6"), ExtResource("7_hp6x6"), ExtResource("9_nr77w")])
+shooter_body = NodePath("../../..")
+
+[node name="TestGunBody" type="MeshInstance3D" parent="Head/Camera3D/WeaponManager"]
+visible = false
+material_override = SubResource("StandardMaterial3D_5kegl")
+mesh = SubResource("BoxMesh_w6yv7")
+
+[node name="TestGunBarrel" type="MeshInstance3D" parent="Head/Camera3D/WeaponManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -0.5)
+visible = false
+material_override = SubResource("StandardMaterial3D_5kegl")
+mesh = SubResource("BoxMesh_g327v")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50298, 0)

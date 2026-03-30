@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://pyf37geoh60w"]
+
+[ext_resource type="Script" uid="uid://c3xsmv8wkrlhy" path="res://Weapons/Scenes/WeaponPickup.gd" id="1_pyecc"]
+[ext_resource type="Script" uid="uid://c7sxhj46c8p76" path="res://Components/Interaction/Interactable.gd" id="2_dy0iv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8o20h"]
+albedo_color = Color(0.960784, 0.960784, 0.960784, 1)
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nug1g"]
+albedo_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e7f8d"]
+size = Vector3(0.10157, 0.145157, 0.693115)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ojn1f"]
+
+[node name="KnifeWorld" type="RigidBody3D" node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_pyecc")
+interactable = NodePath("Interactable")
+
+[node name="WeaponModel" type="Node3D" parent="."]
+
+[node name="Blade" type="CSGPolygon3D" parent="WeaponModel"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0254197, 0, 0.0541256)
+polygon = PackedVector2Array(0, 0.04, -0.499118, -0.00199537, 0, -0.04)
+depth = 0.05
+material = SubResource("StandardMaterial3D_8o20h")
+
+[node name="Handle" type="CSGBox3D" parent="WeaponModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+size = Vector3(0.06, 0.08, 0.2)
+material = SubResource("StandardMaterial3D_nug1g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00187302, 0.000999451, -0.0982666)
+shape = SubResource("BoxShape3D_e7f8d")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_dy0iv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_ojn1f")

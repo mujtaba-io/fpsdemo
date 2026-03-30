@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://c6c3w3s6vkl6s"]
+
+[ext_resource type="Script" uid="uid://chy5qj7ipqhui" path="res://Weapons/VFX/HitImpacts/VFXScenes/GrenadeExplosion.gd" id="1_4n21v"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j6i52"]
+emission_shape_scale = Vector3(1, 0, 1)
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+scale_min = 0.5
+scale_max = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c20j"]
+albedo_color = Color(1, 0.588235, 0.223529, 1)
+emission_enabled = true
+emission = Color(1, 0.588235, 0.223529, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_682ms"]
+material = SubResource("StandardMaterial3D_8c20j")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n8h2d"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0.5, 0)
+damping_min = 1.0
+damping_max = 2.0
+scale_min = 0.5
+scale_max = 2.0
+color = Color(0.431373, 0.431373, 0.431373, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4a8m5"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.180392, 0.180392, 0.180392, 0.501961)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k280c"]
+material = SubResource("StandardMaterial3D_4a8m5")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54q76"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.498039, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_o4j3m"]
+inner_radius = 0.8
+rings = 16
+
+[node name="BlockyExplosionVFX" type="Node3D"]
+script = ExtResource("1_4n21v")
+
+[node name="DebrisParticles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 120
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_j6i52")
+draw_pass_1 = SubResource("BoxMesh_682ms")
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 40
+lifetime = 2.5
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_n8h2d")
+draw_pass_1 = SubResource("BoxMesh_k280c")
+
+[node name="FlashLight" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.698039, 0.282353, 1)
+light_energy = 0.0
+shadow_enabled = true
+omni_range = 20.0
+
+[node name="Shockwave" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_54q76")
+mesh = SubResource("TorusMesh_o4j3m")
+
+[node name="SelfDestructTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="SelfDestructTimer" to="." method="_on_self_destruct_timer_timeout"]

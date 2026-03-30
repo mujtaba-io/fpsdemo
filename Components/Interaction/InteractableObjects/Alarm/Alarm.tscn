@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc01q07n3jcat"]
+
+[ext_resource type="Script" uid="uid://bg8ccolslix24" path="res://Components/Interaction/InteractableObjects/Alarm/Alarm.gd" id="1_d0van"]
+[ext_resource type="Script" uid="uid://c7sxhj46c8p76" path="res://Components/Interaction/Interactable.gd" id="2_8a7sj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c33cc"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_e1qmq"]
+rings = 5
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a7sj"]
+albedo_color = Color(0.106958, 0.00255352, 0.11526, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8a7sj"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.5
+
+[node name="Alarm" type="Node3D" node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_d0van")
+interactable = NodePath("Interactable")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_8a7sj")
+interaction_prompt = "Open Alarm"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_c33cc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)
+mesh = SubResource("TorusMesh_e1qmq")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a7sj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_8a7sj")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a7sj")
