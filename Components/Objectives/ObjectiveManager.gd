@@ -26,7 +26,7 @@ func _ready() -> void:
 	if objectives.size() > 0:
 		for i in range(objectives.size()):
 			print("Objective ", i + 1, ": ", objectives[i].objective_name, " - ", objectives[i].objective_description)
-			   print("")
+			print("")
 		
 		if sequential_mode:
 			start_objective(0)
@@ -34,7 +34,7 @@ func _ready() -> void:
 			start_all_objectives()
 	else:
 		print("WARNING: No objectives found! Please add objectives to the ObjectiveManager.")
-			   print("")
+		print("")
 
 func start_objective(index: int) -> void:
 	print("\nSTARTING NEW OBJECTIVE")
@@ -99,16 +99,16 @@ func _on_objective_completed() -> void:
 	
 	# Check if all objectives are completed
 	if current_objective_index == objectives.size() - 1:
-			   print("\nMISSION PASSED")
+		print("\nMISSION PASSED")
 		print("ALL OBJECTIVES COMPLETED!")
 		print("Congratulations, you have finished all tasks!")
-			   print("")
+		print("")
 		all_objectives_completed.emit()
 	else:
 		var remaining = objectives.size() - current_objective_index - 1
 		print("Objectives remaining: ", remaining)
 		print("Moving to next objective...")
-			   print("")
+		print("")
 		# Start next objective
 		start_objective(current_objective_index + 1)
 
@@ -132,15 +132,15 @@ func _on_objective_completed_flexible(objective_index: int) -> void:
 	print("Progress: ", completed_count, "/", objectives.size(), " objectives completed")
 	
 	if all_completed:
-			   print("\nMISSION PASSED")
+		print("\nMISSION PASSED")
 		print("ALL OBJECTIVES COMPLETED!")
 		print("Congratulations, you have finished all tasks!")
-			   print("")
+		print("")
 		all_objectives_completed.emit()
 	else:
 		var remaining = objectives.size() - completed_count
 		print("Objectives remaining: ", remaining)
-			   print("")
+		print("")
 		
 		# Update current objective to next incomplete one for UI
 		update_current_objective_display()
@@ -206,20 +206,20 @@ func debug_print_status() -> void:
 		print("ALL OBJECTIVES STATUS")
 		for i in range(objectives.size()):
 			var obj = objectives[i]
-			   var status = "" if completed_objectives[i] else ""
+			var status = "" if completed_objectives[i] else ""
 			print(status, " Objective ", i + 1, ": ", obj.objective_name)
 			print("   Progress: ", obj.progress * 100, "%")
 			print("   Completed: ", obj.is_completed)
-	print("")
+
 
 # Function to skip current objective (for testing)
 func debug_skip_current_objective() -> void:
 	if sequential_mode:
 		if current_objective and not current_objective.is_completed:
-			   print("DEBUG: Skipping current objective: ", current_objective.objective_name)
+			print("DEBUG: Skipping current objective: ", current_objective.objective_name)
 			current_objective.complete()
 		else:
-			   print("DEBUG: No active objective to skip")
+			print("DEBUG: No active objective to skip")
 	else:
 		print("DEBUG: In flexible mode, specify which objective to skip using debug_skip_objective(index)")
 
@@ -228,9 +228,9 @@ func debug_skip_objective(index: int) -> void:
 	if index >= 0 and index < objectives.size():
 		var objective = objectives[index]
 		if not completed_objectives[index]:
-			   print("DEBUG: Skipping objective ", index + 1, ": ", objective.objective_name)
+			print("DEBUG: Skipping objective ", index + 1, ": ", objective.objective_name)
 			objective.complete()
 		else:
-			   print("DEBUG: Objective ", index + 1, " is already completed")
+			print("DEBUG: Objective ", index + 1, " is already completed")
 	else:
 		print("DEBUG: Invalid objective index: ", index)

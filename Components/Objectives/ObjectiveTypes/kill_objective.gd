@@ -17,20 +17,20 @@ func initialize(manager: ObjectiveManager) -> void:
 		enemy_node = manager.get_node(target_enemy)
 		
 		if enemy_node:
-			   print("Found target enemy: ", enemy_node.name)
+			print("Found target enemy: ", enemy_node.name)
 			# Try to find Health component component
 			health_component = enemy_node.health_component
 			
 			if health_component:
 				if not health_component.died.is_connected(_on_enemy_died):
 					health_component.died.connect(_on_enemy_died)
-					   print("Connected to enemy's health system")
-					   print("Objective: Eliminate the target enemy")
+					print("Connected to enemy's health system")
+					print("Objective: Eliminate the target enemy")
 			else:
-					   print("Enemy node doesn't have a Health component!")
+				print("Enemy node doesn't have a Health component!")
 				push_error("KillObjective: Enemy node doesn't have a Health component!")
 		else:
-			   print("Could not find enemy node at path: ", target_enemy)
+			print("Could not find enemy node at path: ", target_enemy)
 			push_error("KillObjective: Could not find enemy node at path: ", target_enemy)
 	else:
 		print("No target enemy assigned!")
